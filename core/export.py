@@ -574,7 +574,7 @@ def _build_contribution(wb, portfolio):
     bar.set_categories(Reference(ws, min_col=1, min_row=row + 1, max_row=n))
 
     s = bar.series[0]
-    s.graphicalProperties.solidFill = _PTF
+    s.graphicalProperties.solidFill = _RED  # default = red, overridden per bar
     for i, t in enumerate(tickers):
         pt = DataPoint(idx=i)
         pt.graphicalProperties.solidFill = _PTF if float(perf_c[t]) >= 0 else _RED
@@ -582,11 +582,11 @@ def _build_contribution(wb, portfolio):
     bar.legend = None
     ws.add_chart(bar, "H3")
 
-    # Pie chart — risque (col H, 18 rows below bar to avoid overlap)
+    # Pie chart — risque (réduit + décalé pour ne pas chevaucher le titre)
     pie = PieChart()
     pie.title = "Décomposition du risque"
-    pie.width = 22
-    pie.height = 14
+    pie.width = 18
+    pie.height = 12
     pie.style = 10
     pie.add_data(Reference(ws, min_col=5, min_row=row, max_row=n), titles_from_data=True)
     pie.set_categories(Reference(ws, min_col=1, min_row=row + 1, max_row=n))
@@ -605,7 +605,7 @@ def _build_contribution(wb, portfolio):
         b_val = int(0xF0 + (0x5C - 0xF0) * ratio)
         pt.graphicalProperties.solidFill = f"{r_val:02X}{g_val:02X}{b_val:02X}"
         pie.series[0].data_points.append(pt)
-    ws.add_chart(pie, "H35")
+    ws.add_chart(pie, "H37")
 
 
 # ── Distribution ────────────────────────────────────────
