@@ -443,21 +443,27 @@ def render_dashboard(portfolio: Portfolio, bench_prices: pd.Series,
         with col_pptx:
             st.markdown("##### Rapport PowerPoint")
             st.caption(
-                "7 slides : Performance, Drawdown, VaR, GARCH, Régimes, Ratios, Contribution."
+                "9 slides : Performance, Drawdown, VaR, GARCH, Régimes, Ratios, Contribution, Corrélation."
             )
-            pptx_bytes = generate_pptx(
-                portfolio, bench_aligned, risk_free_rate,
-                rf_series, rf_desc,
-                garch_ptf, garch_bench, gjr_ptf,
-                kupiec_95, kupiec_99, ms_ptf,
-            )
-            st.download_button(
-                label="Télécharger PowerPoint (.pptx)",
-                data=pptx_bytes,
-                file_name="portfolio_report.pptx",
-                mime="application/vnd.openxmlformats-officedocument.presentationml.presentation",
-                type="primary",
-            )
+            try:
+                pptx_bytes = generate_pptx(
+                    portfolio, bench_aligned, risk_free_rate,
+                    rf_series, rf_desc,
+                    garch_ptf, garch_bench, gjr_ptf,
+                    kupiec_95, kupiec_99, ms_ptf,
+                )
+                st.download_button(
+                    label="Télécharger PowerPoint (.pptx)",
+                    data=pptx_bytes,
+                    file_name="portfolio_report.pptx",
+                    mime="application/vnd.openxmlformats-officedocument.presentationml.presentation",
+                    type="primary",
+                )
+            except Exception:
+                st.info(
+                    "L'export PowerPoint nécessite kaleido (rendu d'images). "
+                    "Non disponible sur Streamlit Cloud — disponible en exécution locale."
+                )
 
     # ── Méthodologie détaillée en bas de page ──
     st.divider()
