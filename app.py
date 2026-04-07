@@ -116,7 +116,7 @@ def main():
         with col3:
             with st.container(border=True):
                 st.markdown("**3. Exportez**")
-                st.caption("Rapport Excel professionnel avec graphiques natifs.")
+                st.caption("Rapports Excel et PowerPoint professionnels avec graphiques natifs.")
 
         st.markdown("")
         with st.container(border=True):
