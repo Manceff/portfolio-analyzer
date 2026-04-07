@@ -125,8 +125,7 @@ def main():
                 "Dans sa version actuelle, l'outil analyse un portefeuille à allocation fixe. "
                 "En contexte opérationnel d'asset management, l'étape suivante serait de permettre "
                 "l'import d'un fichier CSV de positions datées (date, ticker, poids), afin d'analyser "
-                "un portefeuille dont l'allocation a évolué dans le temps — reflétant les décisions "
-                "réelles du gérant et permettant une attribution de performance dynamique (Brinson-Fachler)."
+                "un portefeuille dont l'allocation a évolué dans le temps."
             )
         return
 
