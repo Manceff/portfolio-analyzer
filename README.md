@@ -4,21 +4,21 @@ Outil Streamlit d'analyse quantitative pour un portefeuille multi-actifs.
 
 🔗 **[Démo en ligne](https://analyse-portefeuille-ferrah-mancef.streamlit.app)** · hébergé sur Streamlit Community Cloud
 
-![Portfolio Analyzer — page d'accueil](docs/screenshots/portfolio-home.png)
+![Page d'accueil de Portfolio Analyzer](docs/screenshots/portfolio-home.png)
 
 ## L'idée
 
 Quand on regarde un portefeuille a posteriori, trois questions reviennent toujours :
 
-1. **Est-ce que j'ai créé de la valeur ?** — performance absolue et vs benchmark
-2. **À quel prix ?** — risque, drawdown, VaR, volatilité conditionnelle
-3. **Est-ce que le jeu en valait la chandelle ?** — ratios ajustés du risque
+1. **Est-ce que j'ai créé de la valeur ?** Performance absolue et vs benchmark.
+2. **À quel prix ?** Risque, drawdown, VaR, volatilité conditionnelle.
+3. **Est-ce que le jeu en valait la chandelle ?** Ratios ajustés du risque.
 
 J'ai construit l'outil autour de ces trois questions, en y ajoutant une détection de régime de marché (Markov Switching) et des exports Excel + PowerPoint pour livrer un rendu propre.
 
-![Dashboard d'analyse — KPI cards et performance cumulée](docs/screenshots/portfolio-analysis.png)
+![Dashboard d'analyse avec KPI cards et performance cumulée](docs/screenshots/portfolio-analysis.png)
 
-![Module GARCH — paramètres et prévisions de volatilité](docs/screenshots/portfolio-garch.png)
+![Module GARCH avec paramètres et prévisions de volatilité](docs/screenshots/portfolio-garch.png)
 
 ---
 
@@ -35,29 +35,29 @@ J'ai construit l'outil autour de ces trois questions, en y ajoutant une détecti
 - Tracking Error
 - **VaR historique 95% et 99%** (horizon 1 jour)
 - **CVaR / Expected Shortfall**
-- **Backtesting de Kupiec** — test out-of-sample sur fenêtre rolling 504 jours (standard Bâle III)
+- **Backtesting de Kupiec** : test out-of-sample sur fenêtre rolling 504 jours (standard Bâle III)
 
 ### Modèles de volatilité conditionnelle
-- **GARCH(1,1)** (Bollerslev, 1986) — volatility clustering, prévisions daily multi-step
-- **GJR-GARCH(1,1)** (Glosten-Jagannathan-Runkle, 1993) — effet de levier (asymétrie), coefficient γ
+- **GARCH(1,1)** (Bollerslev, 1986) : volatility clustering, prévisions daily multi-step
+- **GJR-GARCH(1,1)** (Glosten-Jagannathan-Runkle, 1993) : effet de levier (asymétrie), coefficient γ
 - Prévisions J+1, J+5, J+10 en daily (pas d'annualisation sqrt(T), incohérente avec GARCH)
 
 ### Détection de régime
 - **Markov Switching** à 2 régimes (Hamilton, 1989)
-- Régime calme (faible vol) vs stress (forte vol) — identification automatique
+- Régime calme (faible vol) vs stress (forte vol), identification automatique
 - Probabilité filtrée et lissée du régime stress
 - Matrice de transition et durée espérée de chaque régime
 
 ### Ratios ajustés du risque
-- **Sharpe** — rendement excédentaire par unité de risque total
-- **Sortino** (Sortino & Price, 1994) — downside deviation correcte (N total au dénominateur)
-- **Information Ratio** — alpha par unité de risque actif
-- **Calmar** — CAGR / |Max Drawdown|
+- **Sharpe** : rendement excédentaire par unité de risque total
+- **Sortino** (Sortino & Price, 1994) : downside deviation correcte (N total au dénominateur)
+- **Information Ratio** : alpha par unité de risque actif
+- **Calmar** : CAGR / |Max Drawdown|
 - **Rolling Sharpe** (1 an glissant) avec Rf time-varying
 
 ### Taux sans risque dynamique
-- **USD** : US Treasury (3 mois, 5 ans, 10 ans) via Yahoo Finance — série daily
-- **EUR** : courbe des taux zéro-coupon AAA via l'API BCE (modèle Svensson) — données exactes
+- **USD** : US Treasury (3 mois, 5 ans, 10 ans) via Yahoo Finance, série daily
+- **EUR** : courbe des taux zéro-coupon AAA via l'API BCE (modèle Svensson), données exactes
 - **Fixe** : valeur manuelle
 - Le Sharpe/Sortino utilisent le dernier taux disponible (Rf actuel)
 - Le Rolling Sharpe utilise le Rf du jour à chaque point (time-varying)
@@ -68,8 +68,8 @@ J'ai construit l'outil autour de ces trois questions, en y ajoutant une détecti
 - Matrice de corrélation avec color-coding (> 0.8 = risque de concentration)
 
 ### Exports
-- **Excel (.xlsx)** — 8 onglets avec données, métriques et graphiques natifs Excel
-- **PowerPoint (.pptx)** — 9 slides avec graphiques haute résolution, basé sur un masque personnalisé
+- **Excel (.xlsx)** : 8 onglets avec données, métriques et graphiques natifs Excel
+- **PowerPoint (.pptx)** : 9 slides avec graphiques haute résolution, basé sur un masque personnalisé
 
 ---
 
@@ -152,15 +152,15 @@ python -m pytest tests/ -v
 
 La section **Méthodologie** en bas du dashboard détaille chaque choix :
 
-1. **Données** — Yahoo Finance, rendements arithmétiques, rééquilibrage quotidien
-2. **Taux sans risque** — US Treasury / BCE AAA yield curve / fixe
-3. **Performance** — CAGR, alpha géométrique, bêta
-4. **Risque** — volatilité, drawdown, tracking error
-5. **VaR** — historique 1 jour, backtesting Kupiec rolling 504j (Bâle III)
-6. **Ratios** — Sharpe, Sortino (formule correcte), IR, Calmar
-7. **GARCH / GJR-GARCH** — vol daily, prévisions multi-step
-8. **Markov Switching** — 2 régimes, probabilités filtrées/lissées
-9. **Contribution** — attribution buy-and-hold, Euler decomposition
+1. **Données** : Yahoo Finance, rendements arithmétiques, rééquilibrage quotidien
+2. **Taux sans risque** : US Treasury / BCE AAA yield curve / fixe
+3. **Performance** : CAGR, alpha géométrique, bêta
+4. **Risque** : volatilité, drawdown, tracking error
+5. **VaR** : historique 1 jour, backtesting Kupiec rolling 504j (Bâle III)
+6. **Ratios** : Sharpe, Sortino (formule correcte), IR, Calmar
+7. **GARCH / GJR-GARCH** : vol daily, prévisions multi-step
+8. **Markov Switching** : 2 régimes, probabilités filtrées/lissées
+9. **Contribution** : attribution buy-and-hold, Euler decomposition
 
 ---
 
@@ -170,8 +170,8 @@ La section **Méthodologie** en bas du dashboard détaille chaque choix :
 Aujourd'hui les poids du portefeuille sont fixes sur toute la période. En pratique un gérant ajuste ses positions en continu. La suite logique : permettre l'import d'un fichier CSV de positions datées (date, ticker, poids ou quantité) pour analyser un portefeuille dont l'allocation a réellement varié dans le temps. Ça permet aussi des métriques d'attribution dynamiques (Brinson-Fachler).
 
 ### Autres pistes
-- **Frontière efficiente** (Markowitz) — optimisation mean-variance avec contraintes
-- **Stress testing** — simulation de scénarios historiques (COVID, 2008, hausse des taux 2022) sur le portefeuille actuel
-- **Multi-devises** — gestion du risque de change pour les portefeuilles internationaux
-- **API REST** — exposer les calculs comme un service
-- **Authentification** — multi-utilisateurs avec sauvegarde des portefeuilles (Supabase)
+- **Frontière efficiente** (Markowitz) : optimisation mean-variance avec contraintes
+- **Stress testing** : simulation de scénarios historiques (COVID, 2008, hausse des taux 2022) sur le portefeuille actuel
+- **Multi-devises** : gestion du risque de change pour les portefeuilles internationaux
+- **API REST** : exposer les calculs comme un service
+- **Authentification** : multi-utilisateurs avec sauvegarde des portefeuilles (Supabase)
