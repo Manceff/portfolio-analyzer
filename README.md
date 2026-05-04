@@ -1,20 +1,18 @@
-# Analyse de portefeuille — Projet étudiant
+# Portfolio Analyzer
 
-> Outil Streamlit d'analyse quantitative de portefeuille multi-actifs, conçu pour démontrer une compréhension métier de l'asset management.
+Outil Streamlit d'analyse quantitative pour un portefeuille multi-actifs.
 
-**Projet initié par Ferrah Mancef.**
+🔗 **[Démo en ligne](https://analyse-portefeuille-ferrah-mancef.streamlit.app)** · hébergé sur Streamlit Community Cloud
 
----
+## L'idée
 
-## Présentation
+Quand on regarde un portefeuille a posteriori, trois questions reviennent toujours :
 
-Cette application propose une analyse complète d'un portefeuille d'actifs financiers, structurée autour de trois questions fondamentales en gestion d'actifs :
+1. **Est-ce que j'ai créé de la valeur ?** — performance absolue et vs benchmark
+2. **À quel prix ?** — risque, drawdown, VaR, volatilité conditionnelle
+3. **Est-ce que le jeu en valait la chandelle ?** — ratios ajustés du risque
 
-1. **Est-ce que j'ai créé de la valeur ?** — Performance absolue et relative vs benchmark
-2. **À quel prix ?** — Risque, drawdown, Value at Risk, volatilité conditionnelle
-3. **Est-ce que le jeu en valait la chandelle ?** — Ratios ajustés du risque (Sharpe, Sortino, etc.)
-
-L'outil intègre également une détection de régime de marché (Markov Switching) et des exports professionnels (Excel et PowerPoint).
+J'ai construit l'outil autour de ces trois questions, en y ajoutant une détection de régime de marché (Markov Switching) et des exports Excel + PowerPoint pour livrer un rendu propre.
 
 ---
 
@@ -132,7 +130,7 @@ python -m pytest tests/ -v
 
 | Composant | Librairie | Justification |
 |---|---|---|
-| Interface | Streamlit | Prototypage rapide, rendu professionnel |
+| Interface | Streamlit | Prototypage rapide, rendu propre |
 | Données | yFinance, API BCE | Gratuit, temps réel |
 | Calcul | NumPy, Pandas, SciPy | Standard industrie |
 | GARCH | arch | Référence pour les modèles de volatilité |
@@ -162,24 +160,12 @@ La section **Méthodologie** en bas du dashboard détaille chaque choix :
 
 ## Pistes d'évolution
 
-Ce projet est un démonstrateur. Voici les axes d'évolution pour un usage plus opérationnel en gestion d'actifs :
-
 ### Gestion dynamique des positions
-Actuellement, les poids du portefeuille sont fixes sur toute la période. En pratique, un gérant d'actifs ajuste ses positions en continu. L'évolution naturelle serait de permettre l'import d'un **fichier CSV de positions datées** (date, ticker, poids ou quantité), afin d'analyser un portefeuille dont l'allocation a varié dans le temps. Cela permettrait de calculer la performance réelle (non simulée) du portefeuille, avec des métriques d'attribution dynamiques (Brinson-Fachler).
+Aujourd'hui les poids du portefeuille sont fixes sur toute la période. En pratique un gérant ajuste ses positions en continu. La suite logique : permettre l'import d'un fichier CSV de positions datées (date, ticker, poids ou quantité) pour analyser un portefeuille dont l'allocation a réellement varié dans le temps. Ça permet aussi des métriques d'attribution dynamiques (Brinson-Fachler).
 
 ### Autres pistes
 - **Frontière efficiente** (Markowitz) — optimisation mean-variance avec contraintes
-- **Stress testing** — simulation de scénarios historiques (COVID, crise 2008, hausse des taux 2022) sur le portefeuille actuel
+- **Stress testing** — simulation de scénarios historiques (COVID, 2008, hausse des taux 2022) sur le portefeuille actuel
 - **Multi-devises** — gestion du risque de change pour les portefeuilles internationaux
-- **API REST** — exposer les calculs comme un service pour intégration dans d'autres outils
-- **Authentification** — gestion multi-utilisateurs avec sauvegarde des portefeuilles (Supabase)
-
----
-
-## Auteur
-
-**Ferrah Mancef** — Projet d'analyse quantitative de portefeuille.
-
-## Licence
-
-Ce projet est un projet étudiant à vocation pédagogique.
+- **API REST** — exposer les calculs comme un service
+- **Authentification** — multi-utilisateurs avec sauvegarde des portefeuilles (Supabase)
