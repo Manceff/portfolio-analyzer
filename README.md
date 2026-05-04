@@ -4,6 +4,8 @@ Outil Streamlit d'analyse quantitative pour un portefeuille multi-actifs.
 
 🔗 **[Démo en ligne](https://analyse-portefeuille-ferrah-mancef.streamlit.app)** · hébergé sur Streamlit Community Cloud
 
+![Portfolio Analyzer — page d'accueil](docs/screenshots/portfolio-home.png)
+
 ## L'idée
 
 Quand on regarde un portefeuille a posteriori, trois questions reviennent toujours :
@@ -13,6 +15,10 @@ Quand on regarde un portefeuille a posteriori, trois questions reviennent toujou
 3. **Est-ce que le jeu en valait la chandelle ?** — ratios ajustés du risque
 
 J'ai construit l'outil autour de ces trois questions, en y ajoutant une détection de régime de marché (Markov Switching) et des exports Excel + PowerPoint pour livrer un rendu propre.
+
+![Dashboard d'analyse — KPI cards et performance cumulée](docs/screenshots/portfolio-analysis.png)
+
+![Module GARCH — paramètres et prévisions de volatilité](docs/screenshots/portfolio-garch.png)
 
 ---
 
